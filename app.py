@@ -18,7 +18,6 @@ def index():
             'score': anime.get('score', 'N/A'),
             'url': anime['url']
         })
-
     return render_template("index.html", animes=anime_datas)
 
 if __name__ == '__main__':
