@@ -9,16 +9,35 @@ def index():
     data = response.json()
     anime_data = data['data']
 
-    anime_datas = []
+    anime_list = []
 
     for anime in anime_data:
-        anime_datas.append({
+        anime_list.append({
             'title': anime['title'],
-            'image_url': anime['images']['jpg']['image_url'],
-            'score': anime.get('score', 'N/A'),
-            'url': anime['url']
+            'id': anime['mal_id'],
+            'image_url': anime['images']['jpg']['image_url']
         })
-    return render_template("index.html", animes=anime_datas)
 
-if __name__ == '__main__':
+    return render_template("index.html", animes=anime_list)
+
+@app.route("/anime/<int:id>")
+def anime_detail(id):
+    response = requests.get(f"https://api.jikan.moe/v4/anime/{id}")
+    data = response.json()
+    anime = data['data']
+
+    details = {
+        'id': anime['mal_id'],
+        'title': anime['title'],
+        'image_url': anime['images']['jpg']['large_image_url'],
+        'synopsis': anime.get('synopsis'),
+        'score': anime.get('score'),
+        'rank': anime.get('rank'),
+        'trailer_url': anime['trailer']['url'] if anime['trailer'] and anime['trailer']['url'] else None
+    }
+
+    return render_template("anime.html", anime=details)
+
+if __name__ == "__main__":
     app.run(debug=True)
+

@@ -1,25 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Anime Movies</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Top Anime Movies</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Anime Movies</h1>
-        <div class="grid">
-            {% for anime in animes %}
-            <div class="card">
-                <img src="{{ anime.image_url }}" alt="{{ anime.title }}">
-                <div class="card-content">
-                    <h2>{{ anime.title }}</h2>
-                    <p>Score: {{ anime.score }}</p>
-                    <a href="{{ anime.url }}" target="_blank">View on MyAnimeList</a>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
+    <h1>Top Anime Movies</h1>
+    <ul>
+        {% for anime in animes %}
+        <li>
+            <a href="/anime/{{ anime.id }}">
+                <img src="{{ anime.image_url }}" alt="{{ anime.title }}" width="100">
+                <p>{{ anime.title }} ({{ anime.year }}) - Score: {{ anime.score }}</p>
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
 </body>
 </html>
