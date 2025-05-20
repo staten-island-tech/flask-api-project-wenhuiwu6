@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Anime</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Search for an Anime</h1>
+    <form method="POST">
+        <input type="text" name="query" placeholder="Enter anime title" required>
+        <button type="submit">Search</button>
+    </form>
+
+    {% if results %}
+        <h2>Search Results:</h2>
+        <ul>
+            {% for anime in results %}
+                <li>
+                    <a href="{{ url_for('anime_detail', anime_id=anime['mal_id']) }}">
+                        <img src="{{ anime['images']['jpg']['image_url'] }}" alt="{{ anime['title'] }}" width="100">
+                        <br>{{ anime['title'] }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <br>
+    <a href="{{ url_for('index') }}">Back to Home</a>
+</body>
+</html>

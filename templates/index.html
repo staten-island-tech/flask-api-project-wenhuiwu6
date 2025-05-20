@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Top Anime Movies</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Top Anime Movies</h1>
+    <ul>
+        {% for anime in anime_list %}
+            <li>
+                <a href="{{ url_for('anime_detail', anime_id=anime['mal_id']) }}">
+                    <img src="{{ anime['images']['jpg']['image_url'] }}" alt="{{ anime['title'] }}" width="100">
+                    <br>{{ anime['title'] }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('search') }}">Search Anime</a>
+</body>
+</html>
