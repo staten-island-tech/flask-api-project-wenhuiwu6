@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ anime.title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <a class="back-link" href="/">← Back to list</a>
+    <div class="anime-details">
+        <h1>{{ anime.title }}</h1>
+        <img src="{{ anime.image_url }}" alt="{{ anime.title }}">
+        <p><strong>Score:</strong> {{ anime.score }}</p>
+        <p><strong>Year:</strong> {{ anime.year }}</p>
+        <p><strong>Genres:</strong> {{ anime.genres | join(', ') }}</p>
+        <p><strong>Duration:</strong> {{ anime.duration }}</p>
+        <p><strong>Rating:</strong> {{ anime.rating }}</p>
+        <p><strong>Synopsis:</strong><br>{{ anime.synopsis }}</p>
+    </div>
+</body>
+</html>

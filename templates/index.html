@@ -6,16 +6,19 @@
 </head>
 <body>
     <h1>Top Anime Movies</h1>
-    <ul>
-        {% for anime in anime_list %}
-            <li>
-                <a href="{{ url_for('anime_detail', anime_id=anime['mal_id']) }}">
-                    <img src="{{ anime['images']['jpg']['image_url'] }}" alt="{{ anime['title'] }}" width="100">
-                    <br>{{ anime['title'] }}
-                </a>
-            </li>
+    <div class="anime-grid">
+        {% for anime in animes %}
+        <a href="/anime/{{ anime.id }}">
+            <div class="anime-card">
+                <img src="{{ anime.image_url }}" alt="{{ anime.title }}">
+                <div class="anime-title">{{ anime.title }}</div>
+                <div class="anime-info">
+                    Year: {{ anime.year or "N/A" }}<br>
+                    Score: {{ anime.score or "N/A" }}
+                </div>
+            </div>
+        </a>
         {% endfor %}
-    </ul>
-    <a href="{{ url_for('search') }}">Search Anime</a>
+    </div>
 </body>
 </html>
