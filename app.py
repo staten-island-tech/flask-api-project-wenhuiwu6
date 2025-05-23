@@ -3,7 +3,6 @@ import requests
 
 app = Flask(__name__)
 
-# Home route that lists top anime movies
 @app.route("/")
 def index():
     response = requests.get("https://api.jikan.moe/v4/top/anime?type=movie")
@@ -22,7 +21,6 @@ def index():
     
     return render_template("index.html", animes=animes)
 
-# Detail page for each anime movie
 @app.route("/anime/<int:id>")
 def anime_detail(id):
     response = requests.get(f"https://api.jikan.moe/v4/anime/{id}")
@@ -40,24 +38,6 @@ def anime_detail(id):
     }
     
     return render_template("anime.html", anime=anime)
-
-@app.route("/season/summer2018")
-def summer_2018():
-    response = requests.get("https://api.jikan.moe/v4/seasons/2018/summer?sfw")
-    data = response.json()
-    anime_list = data.get('data', [])
-    
-    animes = []
-    for anime in anime_list:
-        animes.append({
-            'id': anime['mal_id'],
-            'title': anime['title'],
-            'image_url': anime['images']['jpg']['image_url'],
-            'score': anime.get('score'),
-            'year': anime.get('year'),
-        })
-    
-    return render_template("season.html", season_name="Summer 2018", animes=animes)
 
 if __name__ == "__main__":
     app.run(debug=True)
